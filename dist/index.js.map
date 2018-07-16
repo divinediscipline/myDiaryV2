@@ -1,0 +1,1 @@
+{"version":3,"sources":["../server/index.js"],"names":[],"mappings":";;AAAA;;;;;;AAEA,oBAAK,uBAAL","file":"index.js","sourcesContent":["import test from './test';\r\n\r\ntest('production IS WORKING');"]}
