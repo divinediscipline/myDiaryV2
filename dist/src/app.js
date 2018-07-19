@@ -62,6 +62,7 @@ app.get('/api/v1/entries', function (req, res) {
 app.get('/api/v1/entries/:id', function (req, res) {
   var id = req.params.id;
 
+
   var foundEntry = entries.find(function (entry) {
     return entry.entryId == id;
   });
@@ -72,6 +73,58 @@ app.get('/api/v1/entries/:id', function (req, res) {
     });
   } else {
     res.status(404).send();
+  }
+});
+
+// Create an entry
+app.post('/api/v1/entries', function (req, res) {
+  if (req.body.title && req.body.description) {
+    entries.push({
+      entryId: 3,
+      title: req.body.title,
+      description: req.body.description,
+      createdAt: 20180506143490000,
+      updatedAt: 20180506143490000
+    });
+    res.send({
+      newEntry: {
+        entryId: 3,
+        title: req.body.title,
+        description: req.body.description,
+        createdAt: 20180506143490000,
+        updatedAt: 20180506143490000
+      }
+    });
+  } else {
+    res.status(400).send();
+  }
+});
+
+// Modify an entry
+app.put('/api/v1/entries/:id', function (req, res) {
+  if (req.body.title && req.body.description) {
+    var id = req.params.id;
+
+
+    var foundEntry = entries.find(function (entry) {
+      return entry.entryId == id;
+    });
+
+    if (foundEntry) {
+      res.send({
+        modifiedEntry: {
+          entryId: id,
+          title: req.body.title,
+          description: req.body.description,
+          createdAt: 20180506143490000,
+          updatedAt: 20180506143490000
+        }
+      });
+    } else {
+      res.status(404).send();
+    }
+  } else {
+    res.status(400).send();
   }
 });
 
