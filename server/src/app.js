@@ -67,6 +67,21 @@ app.get('/api/v1/entries/:id', (req, res) => {
   }
 });
 
+// Create an entry
+app.post('/api/v1/entries', (req, res) => {
+  if (req.body.title && req.body.description) {
+    res.send(
+      {
+        newEntry: {
+          title: req.body.title,
+          description: req.body.description,
+        },
+      },
+    );
+  } else {
+    res.status(400).send();
+  }
+});
 
 
 // const port = parseInt(process.env.PORT, 10) || 8000;
