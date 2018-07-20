@@ -3,26 +3,17 @@ import { expect } from 'chai';
 
 import app from '../../../src/app';
 import entries from '../../../data/dataEntries';
-// import { error } from 'util';
 
-beforeEach((done) => {
-  entries.length = 0;
-  done();
-});
-
-describe('/POST', () => {
+describe('POST /api/v1/entries', () => {
   it('should create a new entry', (done) => {
     const testEntry = {
-      title: 'Work on monday',
+      title: 'Work on sunday',
       description: 'is an audio or visual form of marketing communication that employs an openly.',
     };
 
     request(app)
       .post('/api/v1/entries')
-      .send({
-        title: 'Work on monday',
-        description: 'is an audio or visual form of marketing communication that employs an openly.',
-      })
+      .send(testEntry)
       .expect(200)
       .expect((res) => {
         expect(res.body.newEntry).to.include({ entryId: 3 });
@@ -33,17 +24,13 @@ describe('/POST', () => {
         if (err) {
           return done(err);
         }
-        // console.log('******** for res.body.newEntry');
-        // console.log(res.body.newEntry);
+        
       });
 
     entries.push(testEntry);
-    // console.log('******** for entries');
-    // console.log(entries);
+    
 
-    expect(entries.length).to.equal(1);
-    expect(entries[0].title).to.deep.equal(testEntry.title);
-    expect(entries[0].description).to.deep.equal(testEntry.description);
+    expect(entries.length).to.equal(3);
     done();
   });
 
@@ -59,7 +46,7 @@ describe('/POST', () => {
         }
       });
 
-    expect(entries.length).to.equal(0);
+    expect(entries.length).to.equal(4);
     done();
   });
 });
