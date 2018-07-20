@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -12,6 +16,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _dataEntries = require('../data/dataEntries');
+
+var _dataEntries2 = _interopRequireDefault(_dataEntries);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Set up the express app
@@ -23,20 +31,6 @@ app.use((0, _morgan2.default)('dev'));
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
-
-var entries = [{
-  entryId: 1,
-  title: 'Work on monday',
-  description: 'is an audio or visual form of marketing communication that employs an openly sponsored, non-personal message to promote or sell a product, service or idea.[1]:465 Sponsors of advertising are typically businesses wishing to promote their products or services. Advertising is differentiated from public relations in that an advertiser pays for and has control over the message. It differs from personal selling in that the message is non-personal, i.e., not directed to a particular.',
-  createdAt: 20180506143490000,
-  updatedAt: 20180506143490000
-}, {
-  entryId: 2,
-  title: 'Work on Tuesday',
-  description: 'In ancient China, the earliest advertising known was oral, as recorded in the Classic of Poetry (11th to 7th centuries BC) of bamboo flutes played to sell confectionery. Advertisement usually takes in the form of calligraphic signboards and inked papers. A copper printing plate dated back to the Song dynasty used to print posters in the form of a square sheet of paper with a rabbit logo with Jinan Lius Fine Needle Shop" and "We buy high-quality steel rods and make fine-quality needles, to be ready for use at home in no time" written above and below[11] is considered the worlds earliest identified printed advertising medium',
-  createdAt: 20180506143490000,
-  updatedAt: 20180506143490000
-}];
 
 app.get('/', function (req, res) {
   return res.status(200).json({
@@ -54,7 +48,7 @@ app.get('/v1', function (req, res) {
 // Get all entries
 app.get('/api/v1/entries', function (req, res) {
   res.send({
-    entries: entries
+    entries: _dataEntries2.default
   });
 });
 
@@ -63,7 +57,7 @@ app.get('/api/v1/entries/:id', function (req, res) {
   var id = req.params.id;
 
 
-  var foundEntry = entries.find(function (entry) {
+  var foundEntry = _dataEntries2.default.find(function (entry) {
     return entry.entryId == id;
   });
 
@@ -79,7 +73,7 @@ app.get('/api/v1/entries/:id', function (req, res) {
 // Create an entry
 app.post('/api/v1/entries', function (req, res) {
   if (req.body.title && req.body.description) {
-    entries.push({
+    _dataEntries2.default.push({
       entryId: 3,
       title: req.body.title,
       description: req.body.description,
@@ -106,7 +100,7 @@ app.put('/api/v1/entries/:id', function (req, res) {
     var id = req.params.id;
 
 
-    var foundEntry = entries.find(function (entry) {
+    var foundEntry = _dataEntries2.default.find(function (entry) {
       return entry.entryId == id;
     });
 
@@ -135,5 +129,5 @@ app.listen(port, function () {
   console.log('app started on port ' + port);
 });
 
-// export default app;
+exports.default = app;
 //# sourceMappingURL=app.js.map
