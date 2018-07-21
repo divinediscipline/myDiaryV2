@@ -122,10 +122,10 @@ app.put('/api/v1/entries/:id', function (req, res) {
   }
 });
 
-var port = process.env.PORT || 8000;
+var PORT = process.env.PORT || 8000;
 
-app.listen(port, function () {
-  console.log('app started on port ' + port);
+app.listen(PORT, function () {
+  console.log('app started on port ' + PORT);
 });
 
 exports.default = app;
