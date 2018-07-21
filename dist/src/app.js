@@ -122,8 +122,7 @@ app.put('/api/v1/entries/:id', function (req, res) {
   }
 });
 
-// const port = parseInt(process.env.PORT, 10) || 8000;
-var port = 5000;
+var port = process.env.PORT || 8000;
 
 app.listen(port, function () {
   console.log('app started on port ' + port);
