@@ -26,7 +26,7 @@ app.get('/v1', (req, res) => res.status(200).json({
 
 // Get all entries
 app.get('/api/v1/entries', (req, res) => {
-  res.send(
+  res.status(200).json(
     {
       entries,
     },
@@ -42,34 +42,32 @@ app.get('/api/v1/entries/:id', (req, res) => {
   });
 
   if (foundEntry) {
-    res.send(
+    res.json(
       {
         foundEntry,
       },
     );
   } else {
-    res.status(404).send();
+    res.status(404).json();
   }
 });
 
 // Create an entry
 app.post('/api/v1/entries', (req, res) => {
-  if (req.body.title && req.body.description) {
+  if (req.body.title && req.body.description && req.body.entryId && req.body.createdAt) {
     entries.push({
-      entryId: 3,
+      entryId: req.body.entryId,
       title: req.body.title,
       description: req.body.description,
-      createdAt: 20180506143490000,
-      updatedAt: 20180506143490000,
+      createdAt: req.body.createdAt,
     });
-    res.send(
+    res.status(201).json(
       {
         newEntry: {
-          entryId: 3,
+          entryId: req.body.entryId,
           title: req.body.title,
           description: req.body.description,
-          createdAt: 20180506143490000,
-          updatedAt: 20180506143490000,
+          createdAt: req.body.createdAt,
         },
       },
     );
@@ -81,7 +79,7 @@ app.post('/api/v1/entries', (req, res) => {
 
 // Modify an entry
 app.put('/api/v1/entries/:id', (req, res) => {
-  if (req.body.title && req.body.description) {
+  if (req.body.title && req.body.description && req.body.entryId && req.body.createdAt) {
     const { id } = req.params;
 
     const foundEntry = entries.find((entry) => {
@@ -89,14 +87,13 @@ app.put('/api/v1/entries/:id', (req, res) => {
     });
 
     if (foundEntry) {
-      res.send(
+      res.json(
         {
           modifiedEntry: {
-            entryId: id,
+            entryId: req.body.entryId,
             title: req.body.title,
             description: req.body.description,
-            createdAt: 20180506143490000,
-            updatedAt: 20180506143490000,
+            createdAt: req.body.createdAt,
           },
         },
       );
@@ -109,7 +106,7 @@ app.put('/api/v1/entries/:id', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`app started on port ${PORT}`);

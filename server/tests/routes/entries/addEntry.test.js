@@ -7,16 +7,18 @@ import entries from '../../../data/dataEntries';
 describe('POST /api/v1/entries', () => {
   it('should create a new entry', (done) => {
     const testEntry = {
-      title: 'Work on sunday',
-      description: 'is an audio or visual form of marketing communication that employs an openly.',
+      entryId: '1',
+      title: 'Test title',
+      description: 'This is a test description',
+      createdAt: '20180506143490000',
     };
 
     request(app)
       .post('/api/v1/entries')
       .send(testEntry)
-      .expect(200)
+      .expect(201)
       .expect((res) => {
-        expect(res.body.newEntry).to.include({ entryId: 3 });
+        expect(res.body.newEntry.entryId).to.deep.equal(testEntry.entryId);
         expect(res.body.newEntry.title).to.deep.equal(testEntry.title);
         expect(res.body.newEntry.description).to.deep.equal(testEntry.description);
       })
@@ -24,13 +26,7 @@ describe('POST /api/v1/entries', () => {
         if (err) {
           return done(err);
         }
-        
       });
-
-    entries.push(testEntry);
-    
-
-    expect(entries.length).to.equal(3);
     done();
   });
 
@@ -45,8 +41,7 @@ describe('POST /api/v1/entries', () => {
           return done(err);
         }
       });
-
-    expect(entries.length).to.equal(4);
+    expect(entries.length).to.equal(3);
     done();
   });
 });

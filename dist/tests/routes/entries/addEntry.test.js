@@ -19,12 +19,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 describe('POST /api/v1/entries', function () {
   it('should create a new entry', function (done) {
     var testEntry = {
-      title: 'Work on sunday',
-      description: 'is an audio or visual form of marketing communication that employs an openly.'
+      entryId: '1',
+      title: 'Test title',
+      description: 'This is a test description',
+      createdAt: '20180506143490000'
     };
 
-    (0, _supertest2.default)(_app2.default).post('/api/v1/entries').send(testEntry).expect(200).expect(function (res) {
-      (0, _chai.expect)(res.body.newEntry).to.include({ entryId: 3 });
+    (0, _supertest2.default)(_app2.default).post('/api/v1/entries').send(testEntry).expect(201).expect(function (res) {
+      (0, _chai.expect)(res.body.newEntry.entryId).to.deep.equal(testEntry.entryId);
       (0, _chai.expect)(res.body.newEntry.title).to.deep.equal(testEntry.title);
       (0, _chai.expect)(res.body.newEntry.description).to.deep.equal(testEntry.description);
     }).end(function (err, res) {
@@ -32,10 +34,6 @@ describe('POST /api/v1/entries', function () {
         return done(err);
       }
     });
-
-    _dataEntries2.default.push(testEntry);
-
-    (0, _chai.expect)(_dataEntries2.default.length).to.equal(3);
     done();
   });
 
@@ -45,8 +43,7 @@ describe('POST /api/v1/entries', function () {
         return done(err);
       }
     });
-
-    (0, _chai.expect)(_dataEntries2.default.length).to.equal(4);
+    (0, _chai.expect)(_dataEntries2.default.length).to.equal(3);
     done();
   });
 });
