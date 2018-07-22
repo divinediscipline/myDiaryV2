@@ -37,8 +37,6 @@ app.get('/api/v1/entries', (req, res) => {
 app.get('/api/v1/entries/:id', (req, res) => {
   const { id } = req.params;
   if (typeof (Number(id)) === 'number') {
-    console.log('*****id');
-    console.log(typeof (id));
     const foundEntry = entries.find((entry) => {
       return entry.entryId == id;
     });

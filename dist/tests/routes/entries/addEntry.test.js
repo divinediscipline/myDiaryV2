@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 describe('/POST create an entry', function () {
   it('should create a new entry', function (done) {
     var testEntry = {
-      entryId: '1',
+      entryId: '3',
       title: 'Test title',
       description: 'This is a test description',
       createdAt: '20180506143490000'
