@@ -12,10 +12,7 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import entries from '../../../data/dataEntries';
-
-
-describe('GET /api/v1/entries', function () {
+describe('/GET all entries', function () {
 
   it('should get all diary entries', function (done) {
     (0, _supertest2.default)(_app2.default).get('/api/v1/entries').expect(200).expect(function (res) {

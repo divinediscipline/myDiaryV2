@@ -2,10 +2,9 @@ import request from 'supertest';
 import { expect } from 'chai';
 
 import app from '../../../src/app';
-// import entries from '../../../data/dataEntries';
 
 
-describe('GET /api/v1/entries', () => {
+describe('/GET all entries', () => {
 
   it('should get all diary entries', (done) => {
     request(app)

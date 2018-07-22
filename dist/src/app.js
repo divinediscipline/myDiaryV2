@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -28,7 +30,7 @@ var app = (0, _express2.default)();
 // Log requests to the console.
 app.use((0, _morgan2.default)('dev'));
 
-// Parse incoming requests data (https://github.com/expressjs/body-parser)
+// Parse incoming requests data
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
@@ -56,15 +58,20 @@ app.get('/api/v1/entries', function (req, res) {
 app.get('/api/v1/entries/:id', function (req, res) {
   var id = req.params.id;
 
-
-  var foundEntry = _dataEntries2.default.find(function (entry) {
-    return entry.entryId == id;
-  });
-
-  if (foundEntry) {
-    res.json({
-      foundEntry: foundEntry
+  if (typeof Number(id) === 'number') {
+    console.log('*****id');
+    console.log(typeof id === 'undefined' ? 'undefined' : _typeof(id));
+    var foundEntry = _dataEntries2.default.find(function (entry) {
+      return entry.entryId == id;
     });
+
+    if (foundEntry) {
+      res.json({
+        foundEntry: foundEntry
+      });
+    } else {
+      res.status(404).json();
+    }
   } else {
     res.status(404).json();
   }

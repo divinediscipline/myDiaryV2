@@ -10,7 +10,7 @@ const app = express();
 // Log requests to the console.
 app.use(logger('dev'));
 
-// Parse incoming requests data (https://github.com/expressjs/body-parser)
+// Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -36,17 +36,22 @@ app.get('/api/v1/entries', (req, res) => {
 // Get single entry
 app.get('/api/v1/entries/:id', (req, res) => {
   const { id } = req.params;
+  if (typeof (Number(id)) === 'number') {
+    console.log('*****id');
+    console.log(typeof (id));
+    const foundEntry = entries.find((entry) => {
+      return entry.entryId == id;
+    });
 
-  const foundEntry = entries.find((entry) => {
-    return entry.entryId == id;
-  });
-
-  if (foundEntry) {
-    res.json(
-      {
-        foundEntry,
-      },
-    );
+    if (foundEntry) {
+      res.json(
+        {
+          foundEntry,
+        },
+      );
+    } else {
+      res.status(404).json();
+    }
   } else {
     res.status(404).json();
   }
