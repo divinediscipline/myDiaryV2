@@ -47,7 +47,7 @@ app.get('/v1', function (req, res) {
 
 // Get all entries
 app.get('/api/v1/entries', function (req, res) {
-  res.send({
+  res.status(200).json({
     entries: _dataEntries2.default
   });
 });
@@ -62,31 +62,29 @@ app.get('/api/v1/entries/:id', function (req, res) {
   });
 
   if (foundEntry) {
-    res.send({
+    res.json({
       foundEntry: foundEntry
     });
   } else {
-    res.status(404).send();
+    res.status(404).json();
   }
 });
 
 // Create an entry
 app.post('/api/v1/entries', function (req, res) {
-  if (req.body.title && req.body.description) {
+  if (req.body.title && req.body.description && req.body.entryId && req.body.createdAt) {
     _dataEntries2.default.push({
-      entryId: 3,
+      entryId: req.body.entryId,
       title: req.body.title,
       description: req.body.description,
-      createdAt: 20180506143490000,
-      updatedAt: 20180506143490000
+      createdAt: req.body.createdAt
     });
-    res.send({
+    res.status(201).json({
       newEntry: {
-        entryId: 3,
+        entryId: req.body.entryId,
         title: req.body.title,
         description: req.body.description,
-        createdAt: 20180506143490000,
-        updatedAt: 20180506143490000
+        createdAt: req.body.createdAt
       }
     });
   } else {
@@ -96,7 +94,7 @@ app.post('/api/v1/entries', function (req, res) {
 
 // Modify an entry
 app.put('/api/v1/entries/:id', function (req, res) {
-  if (req.body.title && req.body.description) {
+  if (req.body.title && req.body.description && req.body.entryId && req.body.createdAt) {
     var id = req.params.id;
 
 
@@ -105,13 +103,12 @@ app.put('/api/v1/entries/:id', function (req, res) {
     });
 
     if (foundEntry) {
-      res.send({
+      res.json({
         modifiedEntry: {
-          entryId: id,
+          entryId: req.body.entryId,
           title: req.body.title,
           description: req.body.description,
-          createdAt: 20180506143490000,
-          updatedAt: 20180506143490000
+          createdAt: req.body.createdAt
         }
       });
     } else {
@@ -122,7 +119,7 @@ app.put('/api/v1/entries/:id', function (req, res) {
   }
 });
 
-var PORT = process.env.PORT || 8000;
+var PORT = process.env.PORT || 5000;
 
 app.listen(PORT, function () {
   console.log('app started on port ' + PORT);
