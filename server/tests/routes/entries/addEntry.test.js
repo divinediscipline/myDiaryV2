@@ -7,7 +7,7 @@ import entries from '../../../data/dataEntries';
 describe('/POST create an entry', () => {
   it('should create a new entry', (done) => {
     const testEntry = {
-      entryId: '1',
+      entryId: '3',
       title: 'Test title',
       description: 'This is a test description',
       createdAt: '20180506143490000',

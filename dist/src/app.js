@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -59,8 +57,6 @@ app.get('/api/v1/entries/:id', function (req, res) {
   var id = req.params.id;
 
   if (typeof Number(id) === 'number') {
-    console.log('*****id');
-    console.log(typeof id === 'undefined' ? 'undefined' : _typeof(id));
     var foundEntry = _dataEntries2.default.find(function (entry) {
       return entry.entryId == id;
     });
