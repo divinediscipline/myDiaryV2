@@ -16,7 +16,7 @@ var _dataEntries2 = _interopRequireDefault(_dataEntries);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-describe('POST /api/v1/entries', function () {
+describe('/POST create an entry', function () {
   it('should create a new entry', function (done) {
     var testEntry = {
       entryId: '1',

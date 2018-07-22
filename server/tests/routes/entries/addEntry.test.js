@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import app from '../../../src/app';
 import entries from '../../../data/dataEntries';
 
-describe('POST /api/v1/entries', () => {
+describe('/POST create an entry', () => {
   it('should create a new entry', (done) => {
     const testEntry = {
       entryId: '1',
