@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { expect } from 'chai';
 
-import app from '../../../src/app';
-import entries from '../../../data/dataEntries';
+import app from '../../../routes/src/app';
+import entries from '../../../models/data/dataEntries';
 
 describe('/POST create an entry', () => {
   it('should create a new entry', (done) => {

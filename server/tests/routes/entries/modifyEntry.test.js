@@ -1,7 +1,9 @@
 import request from 'supertest';
 import { expect } from 'chai';
 
-import app from '../../../src/app';
+
+import app from '../../../routes/src/app';
+
 
 describe('/PUT modify an entry', () => {
   const testEntry = {

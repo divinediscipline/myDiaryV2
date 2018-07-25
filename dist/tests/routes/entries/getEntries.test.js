@@ -6,7 +6,7 @@ var _supertest2 = _interopRequireDefault(_supertest);
 
 var _chai = require('chai');
 
-var _app = require('../../../src/app');
+var _app = require('../../../routes/src/app');
 
 var _app2 = _interopRequireDefault(_app);
 

@@ -1,7 +1,0 @@
-const app = require('../dist/src/app'); // The express app we just created
-
-const port = parseInt(process.env.PORT, 10) || 8000;
-
-app.listen(port, () => {
-  console.log(`app started on port ${port}`);
-});
