@@ -9,7 +9,7 @@ import getEntry from '../controllers/getEntry';
 
 const router = express.Router();
 
-//Api routes
+// Api routes
 router.post('/entries', createEntry);
 router.put('/entries/:id', modifyEntry);
 router.get('/entries', getEntries);

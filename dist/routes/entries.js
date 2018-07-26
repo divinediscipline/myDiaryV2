@@ -36,7 +36,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
-//Api routes
+// Api routes
 router.post('/entries', _createEntry2.default);
 router.put('/entries/:id', _modifyEntry2.default);
 router.get('/entries', _getEntries2.default);

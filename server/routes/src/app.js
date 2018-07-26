@@ -1,11 +1,14 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-
+import dotenv from 'dotenv';
 
 // load routes
 import entries from '../entries';
 
+const { Client } = require('pg');
+
+dotenv.config();
 
 // Set up the express app
 const app = express();
@@ -14,7 +17,7 @@ const app = express();
 // Log requests to the console.
 app.use(logger('dev'));
 
-// Parse incoming requests data and use loaded routes 
+// Parse incoming requests data and use loaded routes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1', entries);
@@ -30,6 +33,27 @@ app.get('/v1', (req, res) => res.status(200).json({
 }));
 
 
+// trying to input data into postgres database
+app.post('/test', (req, res) => {
+  console.log('Post body', req.body);
+
+  const client = new Client();
+  client.connect()
+    .then(() => {
+      console.log('connection complete');
+      const sql = 'INSERT INTO entries (title, details) VALUES ( $1, $2)';
+      const params = ['aaaa', 'bbbb'];
+      return client.query(sql, params);
+    })
+    .then((result) => {
+      console.log('result?', result);
+    })
+    .catch((err) => {
+      console.log('err', err);
+
+    });
+  res.send();
+});
 
 const PORT = process.env.PORT || 5000;
 
