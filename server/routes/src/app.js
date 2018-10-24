@@ -37,22 +37,27 @@ app.get('/v1', (req, res) => res.status(200).json({
 app.post('/test', (req, res) => {
   console.log('Post body', req.body);
 
-  const client = new Client();
+  const client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'diary_entries',
+    password: 'phoenix123',
+    port: 5432,
+  });
   client.connect()
     .then(() => {
       console.log('connection complete');
-      const sql = 'INSERT INTO entries (title, details) VALUES ( $1, $2)';
-      const params = ['aaaa', 'bbbb'];
-      return client.query(sql, params);
-    })
-    .then((result) => {
-      console.log('result?', result);
-    })
-    .catch((err) => {
-      console.log('err', err);
-
+      // const sql = 'INSERT INTO users (firstName, lastName) VALUES ( $1, $2)';
+      // const params = ['aaaa', 'bbbb'];
+      // return client.query(sql, params);
     });
-  res.send();
+  //   .then((result) => {
+  //     console.log('result?', result);
+  //   })
+  //   .catch((err) => {
+  //     console.log('err', err);
+  //   });
+  // res.send();
 });
 
 const PORT = process.env.PORT || 5000;
